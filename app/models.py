@@ -9,10 +9,10 @@ class User(db.Model):
 
     def __init__(self, username, password):
         self.username = username
-        self.email = password
+        self.password = password
 
     def __repr__(self):
-        return 'The users name is: %r' % self.name
+        return 'The users name is: %r' % self.username
 
 
 class Patient(db.Model):

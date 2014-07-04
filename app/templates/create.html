@@ -1,0 +1,6 @@
+{% extends "base.html" %}
+{% block title %} Alcohol Treatment Centre - triage info{% endblock %}
+{% block page_content %}
+  {% import "bootstrap/wtf.html" as wtf %}
+  {{ wtf.quick_form(form) }}
+{% endblock %}

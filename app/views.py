@@ -20,3 +20,8 @@ def create():
         # Otherwise report error message.
         flash('The form has been submitted successfully.')
     return render_template('create.html', form=form)
+
+
+@app.errorhandler(404)
+def page_not_found(e):
+    return render_template('404.html'), 404

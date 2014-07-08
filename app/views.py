@@ -15,6 +15,13 @@ def index():
     return render_template('login.html', form=login_form)
 
 
+@app.route('/logout')
+def logout():
+    session['logged_in'] = False
+    flash('You have been logged out.')
+    return redirect('/')
+
+
 @app.route('/create/', methods=['GET', 'POST'])
 def create():
     form = forms.CreateForm()

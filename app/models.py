@@ -18,18 +18,16 @@ class User(db.Model):
 class Patient(db.Model):
     __tablename__ = 'patients'
 
-    # Used to determine which nurse triaged a patient.
-    # clientname = db.Column(db.String(64), db.ForeignKey('users.username'))
-    mobile = db.Column(db.Integer, unique=True, primary_key=True)
     forename = db.Column(db.String(64), nullable=False)
     surname = db.Column(db.String(64), nullable=False)
     dob = db.Column(db.Date)
+    mobile = db.Column(db.String(30), nullable=False, unique=True, primary_key=True)
 
-    def __init__(self, mobile, forename, surname, dob):
-        self.mobile = mobile
+    def __init__(self, forename, surname, dob, mobile):
         self.forename = forename
         self.surname = surname
         self.dob = dob
+        self.mobile = mobile
 
     def __repr__(self):
-        return 'The mobile number and name are: %r, %r %r' % (self.mobile, self.forename, self.surname)
+        return 'The patients name & mobile number are: %r %r, %r' % (self.forename, self.surname, self.mobile)

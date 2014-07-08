@@ -1,5 +1,6 @@
 from flask import Flask, render_template, session, redirect, url_for, flash
-from app import app, forms, models
+from app import app, forms, models, db
+import datetime
 
 @app.route('/', methods=['GET', 'POST'])
 def index():
@@ -24,12 +25,25 @@ def logout():
 
 @app.route('/create/', methods=['GET', 'POST'])
 def create():
-    form = forms.CreateForm()
-    if form.validate_on_submit():
-        # TODO: If save was a success, inform user
-        # Otherwise report error message.
-        flash('The form has been submitted successfully.')
-    return render_template('create.html', form=form)
+    if not session['logged_in']:
+        flash('You are not logged into the system.')
+        return redirect('/')
+
+    create_form = forms.CreateForm()
+    if create_form.validate_on_submit():
+        # Create a patient from user input
+        patient = models.Patient(forename = create_form.forename.data,
+                                 surname = create_form.surname.data,
+                                 dob = datetime.datetime.strptime(create_form.dob.data, "%d/%m/%Y"),
+                                 mobile = create_form.mobile.data
+                                )
+        # Add patient data to database
+        db.session.add(patient)
+        db.session.commit()
+    # Reset the form & redirect to self.
+    flash('The form has been submitted successfully.')
+    create_form.reset()
+    return render_template('create.html', form=create_form,error='error')
 
 
 @app.errorhandler(404)

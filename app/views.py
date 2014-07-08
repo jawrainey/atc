@@ -40,9 +40,9 @@ def create():
         # Add patient data to database
         db.session.add(patient)
         db.session.commit()
-    # Reset the form & redirect to self.
-    flash('The form has been submitted successfully.')
-    create_form.reset()
+        # Reset the form & redirect to self.
+        flash('The form has been submitted successfully.')
+        create_form.reset()
     return render_template('create.html', form=create_form,error='error')
 
 

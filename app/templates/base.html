@@ -10,9 +10,12 @@
         <div class="container-fluid">
           <a class="navbar-brand" href="/">&lambda;</a>
           <ul class="nav navbar-nav pull-right">
-            <li class="active"><a href="/">Home</a></li>
-            <li><a href="/dashboard">Dashboard</a></li>
+            {% if session['logged_in'] %}
+            <li class="active"><a href="/create">Create</a></li>
             <li><a href="/logout">Logout</a></li>
+            {% else %}
+            <li class="active"><a href="/">Login</a></li>
+            {% endif %}
           </ul>
         </div>
       </nav>

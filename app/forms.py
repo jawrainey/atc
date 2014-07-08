@@ -1,5 +1,6 @@
 from app import models
 from flask.ext.wtf import Form
+from werkzeug.datastructures import MultiDict
 from wtforms import StringField, SubmitField, PasswordField, validators
 
 import datetime
@@ -45,3 +46,6 @@ class CreateForm(Form):
         else:
             # All is well on the validation front.
             return True
+
+    def reset(self):
+        self.process(MultiDict([]))

@@ -1,4 +1,4 @@
-from app import db
+from app import db, bcrypt
 
 
 class User(db.Model):
@@ -9,11 +9,16 @@ class User(db.Model):
 
     def __init__(self, username, password):
         self.username = username
-        self.password = password
+        self.set_password(password)
+
+    def set_password(self, password):
+        self.password = bcrypt.generate_password_hash(password)
+
+    def check_password(self, value):
+        return bcrypt.check_password_hash(self.password, value)
 
     def __repr__(self):
         return 'The users name is: %r' % self.username
-
 
 class Patient(db.Model):
     __tablename__ = 'patients'

@@ -1,5 +1,5 @@
 from flask import Flask, render_template, session, redirect, url_for, flash
-from app import app, forms, models, db
+from app import app, forms, models, db, bcrypt
 import datetime
 
 @app.route('/', methods=['GET', 'POST'])
@@ -7,7 +7,7 @@ def index():
     login_form = forms.LoginForm()
     if login_form.validate_on_submit():
         user = models.User.query.filter_by(username = login_form.username.data).first()
-        if user:
+        if user and bcrypt.check_password_hash(user.password, login_form.password.data):
             # Used to display user-specific nav items
             session['logged_in'] = True
             return redirect(url_for('create'))

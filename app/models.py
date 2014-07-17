@@ -1,7 +1,8 @@
 from app import db, bcrypt
+from flask.ext.login import UserMixin
 
 
-class User(db.Model):
+class User(UserMixin,db.Model):
     __tablename__ = 'users'
 
     username = db.Column(db.String(64),  nullable=False, unique=True, primary_key=True)
@@ -16,6 +17,9 @@ class User(db.Model):
 
     def check_password(self, value):
         return bcrypt.check_password_hash(self.password, value)
+
+    def get_id(self):
+        return unicode(self.username)
 
     def __repr__(self):
         return 'The users name is: %r' % self.username

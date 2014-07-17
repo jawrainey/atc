@@ -1,15 +1,20 @@
 from flask import Flask, render_template, session, redirect, url_for, flash
-from app import app, forms, models, db, bcrypt
+from app import app, forms, models, db, bcrypt, login_manager
+from flask.ext.login import login_user, login_required, logout_user
 import datetime
+
+
+@login_manager.user_loader
+def load_user(username):
+    return models.User.query.get(username)
 
 @app.route('/', methods=['GET', 'POST'])
 def index():
     login_form = forms.LoginForm()
     if login_form.validate_on_submit():
-        user = models.User.query.filter_by(username = login_form.username.data).first()
+        user = models.User.query.filter_by(username=login_form.username.data).first()
         if user and bcrypt.check_password_hash(user.password, login_form.password.data):
-            # Used to display user-specific nav items
-            session['logged_in'] = True
+            login_user(user)
             return redirect(url_for('create'))
         else:
             flash('Invalid username or password.')
@@ -17,18 +22,16 @@ def index():
 
 
 @app.route('/logout')
+@login_required
 def logout():
-    session['logged_in'] = False
+    logout_user()
     flash('You have been logged out.')
     return redirect('/')
 
 
 @app.route('/create/', methods=['GET', 'POST'])
+@login_required
 def create():
-    if not session['logged_in']:
-        flash('You are not logged into the system.')
-        return redirect('/')
-
     create_form = forms.CreateForm()
     if create_form.validate_on_submit():
         # Create a patient from user input

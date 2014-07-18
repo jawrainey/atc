@@ -1,6 +1,10 @@
 {% extends "base.html" %}
 {% block title %} Alcohol Treatment Centre - Login {% endblock %}
-{% block page_content %}
-  {% import "bootstrap/wtf.html" as wtf %}
-  {{ wtf.quick_form(form) }}
+{% block page_content %}{% import "macros.html" as helper %}
+  <form method="post" class="form" role="form">
+    {{ form.hidden_tag() }}
+    {{ helper.render_field(form.username, "Enter a username") }}
+    {{ helper.render_field(form.password, "Enter a password") }}
+    <input class="btn btn-default btn-submit" id="submit" name="submit" type="submit" value="Log in">
+  </form>
 {% endblock %}

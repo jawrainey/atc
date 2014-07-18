@@ -1,17 +1,19 @@
 from app import models
 from flask.ext.wtf import Form
 from werkzeug.datastructures import MultiDict
-from wtforms import StringField, SubmitField, PasswordField, validators
-
+from wtforms import TextField, StringField, SubmitField, PasswordField
+from wtforms.validators import DataRequired, Length, Required
 import datetime
 import re
 
 
 class LoginForm(Form):
-    username = StringField('Username: ', [validators.Required(
-        message='You must provide a username.')])
-    password = PasswordField('Password: ', [validators.Required(
-        message='You must provide a password.')])
+    username = TextField('Username: ', [DataRequired(
+        message='You must provide a username.'),
+        Length(min=3, max=25)])
+    password = PasswordField('Password', [DataRequired(
+        message='You must provide a password.'),
+        Length(min=4, max=40)])
     submit = SubmitField('Log in')
 
     def __init__(self, *args, **kwargs):
@@ -19,6 +21,7 @@ class LoginForm(Form):
         self.user = None
 
     def validate(self):
+        # Use the validators defined above first, e.g. empty fields.
         if not Form.validate(self):
             return False
 
@@ -37,19 +40,18 @@ class LoginForm(Form):
 
 
 class CreateForm(Form):
-    forename = StringField('Forename: ', [validators.Required(
+    forename = StringField('Forename: ', [Required(
         message='A forename must be provided')])
-    surname = StringField('Surname: ', [validators.Required(
+    surname = StringField('Surname: ', [Required(
         message='A surname must be provided.')])
-    dob = StringField('D.O.B in format DD/MM/YYYY:', [validators.Required(
+    dob = StringField('D.O.B:', [Required(
         message='A date of birth must be provided.')])
-    mobile = StringField('Mobile number starting with 07 or 44: ',
-                         [validators.Required(
+    mobile = StringField('Mobile number: ',
+                         [Required(
                              message='A mobile number must be provided.')])
     submit = SubmitField('Submit')
 
     def validate(self):
-        # Use the validators defined above first, e.g. empty fields.
         if not Form.validate(self):
             return False
 
@@ -58,9 +60,8 @@ class CreateForm(Form):
         except ValueError:
             self.dob.errors.append("D.O.B format must be DD/MM/YYYY.")
 
-        # Only accept valid UK mobile phone numbers
-        # e,.g. in the format: 07111111111 or 447111111111
-        rule = re.compile(r'^(07[\d]{8,12}|447[\d]{7,11})$')
+        # Only accept valid UK mobile phone numbers in international format.
+        rule = re.compile(r'^(447[\d]{7,11})$')
 
         if not rule.search(self.mobile.data):
             self.mobile.errors.append("Invalid mobile number provided.")
@@ -70,11 +71,9 @@ class CreateForm(Form):
             self.mobile.errors.append(
                 "A patient with that mobile number already exists.")
 
-        # Show all errors generated above.
         if self.dob.errors or self.mobile.errors:
             return False
-        else:
-            return True
+        return True
 
     def reset(self):
         self.process(MultiDict([]))

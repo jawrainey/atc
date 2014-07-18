@@ -1,6 +1,13 @@
 {% extends "base.html" %}
 {% block title %} Alcohol Treatment Centre - triage info{% endblock %}
 {% block page_content %}
-  {% import "bootstrap/wtf.html" as wtf %}
-  {{ wtf.quick_form(form) }}
+{% import "macros.html" as helper %}
+  <form method="post" class="form" role="form">
+    {{ form.hidden_tag() }}
+    {{ helper.render_field(form.forename, "First name") }}
+    {{ helper.render_field(form.surname, "Last name") }}
+    {{ helper.render_field(form.dob, "Must be in the format DD/MM/YYYY") }}
+    {{ helper.render_field(form.mobile, "Must be international format (+44)") }}
+    <input class="btn btn-default btn-submit" id="submit" name="submit" type="submit" value="Create">
+  </form>
 {% endblock %}

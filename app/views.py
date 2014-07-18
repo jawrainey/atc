@@ -22,8 +22,6 @@ def index():
     if form.validate_on_submit():
         login_user(form.user)
         return redirect(url_for('create'))
-    else:
-        flash_errors(form)
     return render_template('login.html', form=form)
 
 

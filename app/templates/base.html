@@ -10,7 +10,7 @@
         <div class="container-fluid">
           <a class="navbar-brand" href="/">&lambda;</a>
           <ul class="nav navbar-nav pull-right">
-            {% if session['logged_in'] %}
+            {% if request.endpoint == 'create' %}
             <li class="active"><a href="/create">Create</a></li>
             <li><a href="/logout">Logout</a></li>
             {% else %}

@@ -14,9 +14,26 @@ class LoginForm(Form):
         message='You must provide a password.')])
     submit = SubmitField('Log in')
 
-#    def validate(self):
-#        if not Form.validate(self):
-#            return False
+    def __init__(self, *args, **kwargs):
+        super(LoginForm, self).__init__(*args, **kwargs)
+        self.user = None
+
+    def validate(self):
+        if not Form.validate(self):
+            return False
+
+        self.user = models.User.query.filter_by(
+            username=self.username.data).first()
+
+        if not self.user:
+            self.username.errors.append('Unknown username provided.')
+
+        if self.user and not self.user.check_password(self.password.data):
+            self.password.errors.append('Invalid password provided.')
+
+        if self.username.errors or self.password.errors:
+            return False
+        return True
 
 
 class CreateForm(Form):

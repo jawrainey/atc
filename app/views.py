@@ -1,5 +1,5 @@
 from flask import render_template, redirect, url_for, flash
-from app import app, forms, models, db, bcrypt, login_manager
+from app import app, forms, models, db, login_manager
 from flask.ext.login import login_user, login_required, logout_user
 import datetime
 
@@ -9,17 +9,21 @@ def load_user(username):
     return models.User.query.get(username)
 
 
+def flash_errors(form):
+    """Flashes form errors"""
+    for field, errors in form.errors.items():
+        for error in errors:
+            flash(error, 'error')
+
+
 @app.route('/', methods=['GET', 'POST'])
 def index():
     form = forms.LoginForm()
     if form.validate_on_submit():
-        user = models.User.query.filter_by(username=form.username.data).first()
-        if user and bcrypt.check_password_hash(user.password,
-                                               form.password.data):
-            login_user(user)
-            return redirect(url_for('create'))
-        else:
-            flash('Invalid username or password.')
+        login_user(form.user)
+        return redirect(url_for('create'))
+    else:
+        flash_errors(form)
     return render_template('login.html', form=form)
 
 

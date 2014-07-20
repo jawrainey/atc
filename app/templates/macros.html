@@ -5,3 +5,11 @@
       {% if field.errors %}<p class="help-block">{{ field.errors|join(' ') }}</p>{% endif %}
     </div>
 {% endmacro %}
+
+{% macro placeholder(field, default) -%}
+{% if field.errors -%}
+{{ field.errors|join(' ')  }}
+{% else -%}
+{{default}}
+{% endif -%}
+{% endmacro -%}

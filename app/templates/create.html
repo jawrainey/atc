@@ -1,13 +1,32 @@
 {% extends "base.html" %}
-{% block title %} Alcohol Treatment Centre - triage info{% endblock %}
-{% block page_content %}
+{% block title %}Alcohol Treatment Centre - Patient registration{% endblock %}
+{% block page_content -%}
 {% import "macros.html" as helper %}
-  <form method="post" class="form" role="form">
-    {{ form.hidden_tag() }}
-    {{ helper.render_field(form.forename, "First name") }}
-    {{ helper.render_field(form.surname, "Last name") }}
-    {{ helper.render_field(form.dob, "Must be in the format DD/MM/YYYY") }}
-    {{ helper.render_field(form.mobile, "Must be international format (+44)") }}
-    <input class="btn btn-default btn-submit" id="submit" name="submit" type="submit" value="Create">
-  </form>
-{% endblock %}
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h2 class="panel-title">Patient registration</h2>
+        </div>
+        <div class="panel-body">
+          <form method="post" class="form" role="form">
+            {{ form.hidden_tag() }}
+            <div class="form-group input-group{% if form.forename.errors %} has-error{% endif %}">
+              <span class="input-group-addon control-label"><i class="glyphicon glyphicon-user"></i></span>
+              {{ form.forename(placeholder=helper.placeholder(form.forename, "First name"), class="form-control") }}
+            </div>
+            <div class="form-group input-group{% if form.surname.errors %} has-error{% endif %}">
+              <span class="input-group-addon control-label"><i class="glyphicon glyphicon-user"></i></span>
+              {{ form.surname(placeholder=helper.placeholder(form.surname, "Last name"), class="form-control") }}
+            </div>
+            <div class="form-group input-group{% if form.dob.errors %} has-error{% endif %}">
+              <span class="input-group-addon control-label"><i class="glyphicon glyphicon-bold"></i></span>
+              {{ form.dob(placeholder=helper.placeholder(form.dob, "D.O.B in the format: DD/MM/YYYY"), class="form-control") }}
+            </div>
+            <div class="form-group input-group{% if form.mobile.errors %} has-error{% endif %}">
+              <span class="input-group-addon control-label"><i class="glyphicon glyphicon-phone"></i></span>
+              {{ form.mobile(placeholder=helper.placeholder(form.mobile, "Mobile phone number"), class="form-control") }}
+            </div>
+            <button type="submit" name="submit" class="btn btn-primary btn pull-right">Create</button>
+          </form>
+        </div>
+      </div>
+{%- endblock %}

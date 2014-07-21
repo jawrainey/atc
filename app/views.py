@@ -9,13 +9,6 @@ def load_user(username):
     return models.User.query.get(username)
 
 
-def flash_errors(form):
-    """Flashes form errors"""
-    for field, errors in form.errors.items():
-        for error in errors:
-            flash(error, 'error')
-
-
 @app.route('/', methods=['GET', 'POST'])
 def index():
     form = forms.LoginForm()
@@ -39,17 +32,19 @@ def create():
     form = forms.CreateForm()
     if form.validate_on_submit():
         dob = datetime.datetime.strptime(form.dob.data, "%d/%m/%Y")
+        # Prefer international format as that's what is used by SMS APIs.
+        mobile = form.mobile.data.replace('07', '447')
         # Create a patient from user input
         patient = models.Patient(forename=form.forename.data,
                                  surname=form.surname.data,
-                                 dob=dob, mobile=form.mobile.data)
+                                 dob=dob, mobile=mobile)
         # Add patient data to database
         db.session.add(patient)
         db.session.commit()
         # Reset the form & redirect to self.
         flash('The form has been submitted successfully.')
         form.reset()
-    return render_template('create.html', form=form, error='error')
+    return render_template('create.html', form=form)
 
 
 @app.errorhandler(404)

@@ -49,4 +49,5 @@ def create():
 
 @app.errorhandler(404)
 def page_not_found(e):
-    return render_template('404.html'), 404
+    flash('Something went wrong. You have been taken back to the login screen.')
+    return redirect('/')

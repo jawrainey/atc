@@ -1,6 +1,6 @@
 {% macro placeholder(field, default) -%}
 {% if field.errors -%}
-{{ field.errors|join(' ')  }}
+{{ field.errors[0]  }}
 {% else -%}
 {{default}}
 {% endif -%}

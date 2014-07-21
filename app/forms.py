@@ -4,7 +4,6 @@ from werkzeug.datastructures import MultiDict
 from wtforms import TextField, StringField, SubmitField, PasswordField
 from wtforms.validators import DataRequired, Length, Required
 import datetime
-import re
 
 
 class LoginForm(Form):
@@ -55,23 +54,32 @@ class CreateForm(Form):
         if not Form.validate(self):
             return False
 
+        if not self.forename.data.isalpha():
+            self.forename.errors.append("First name must contain only letters.")
+
+        if not self.surname.data.isalpha():
+            self.surname.errors.append("Last name must contain only letters.")
+
         try:
             datetime.datetime.strptime(self.dob.data, "%d/%m/%Y")
         except ValueError:
             self.dob.errors.append("D.O.B format must be DD/MM/YYYY.")
 
-        # Only accept valid UK mobile phone numbers in international format.
-        rule = re.compile(r'^(447[\d]{7,11})$')
-
-        if not rule.search(self.mobile.data):
-            self.mobile.errors.append("Invalid mobile number provided.")
+        mobile = self.mobile.data
+        if len(mobile) < 7:
+            self.mobile.errors.append("Mobile number provided is too short.")
+        if len(mobile) > 11:
+            self.mobile.errors.append("Mobile number provided is too long.")
+        if mobile[0:2] != '07':
+            self.mobile.errors.append("Mobile number must begin with 07.")
 
         # Validate the UNIQUE mobile number against the DB.
         if models.Patient.query.get(self.mobile.data):
             self.mobile.errors.append(
                 "A patient with that mobile number already exists.")
 
-        if self.dob.errors or self.mobile.errors:
+        if self.forename.errors or self.surname.errors \
+                or self.dob.errors or self.mobile.errors:
             return False
         return True
 

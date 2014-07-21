@@ -1,6 +1,6 @@
 # ATC Cardiff
 
-A web application to gather patient data at Cardiff's [**A**lchohol **T**reatment **C**entre](http://www.walesprobationtrust.gov.uk/alcohol-treatment-centre-2/) (ATC). The data harvested by this app will be used as a **plugin** to *personalise* the [SMS intervention service](https://github.com/jawrainey/sris).
+A web application to gather patient data at Cardiff's [Alchohol Treatment Centre](http://www.walesprobationtrust.gov.uk/alcohol-treatment-centre-2/) (ATC). The data harvested by this app will be used as a **plugin** to *personalise* the [SMS intervention service](https://github.com/jawrainey/sris).
 
 ## Requirements
 

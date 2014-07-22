@@ -1,4 +1,4 @@
-from flask import render_template, redirect, url_for, flash
+from flask import render_template, redirect, url_for, flash, request
 from app import app, forms, models, db, login_manager
 from flask.ext.login import login_user, login_required, logout_user
 import datetime
@@ -12,9 +12,10 @@ def load_user(username):
 @app.route('/', methods=['GET', 'POST'])
 def index():
     form = forms.LoginForm()
-    if form.validate_on_submit():
-        login_user(form.user)
-        return redirect(url_for('create'))
+    if request.method == 'POST':
+        if form.validate_on_submit():
+            login_user(form.user)
+            return redirect(url_for('create'))
     return render_template('login.html', form=form)
 
 
@@ -49,5 +50,6 @@ def create():
 
 @app.errorhandler(404)
 def page_not_found(e):
-    flash('Something went wrong. You have been taken back to the login screen.')
-    return redirect('/')
+    flash('Whoops, something went wrong.'
+          'You have been taken back to the login screen.')
+    return render_template('404.html'), 404

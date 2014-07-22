@@ -43,9 +43,9 @@ class CreateForm(Form):
     surname = StringField('Surname: ', [Required(
         message='A surname must be provided.')])
     dob = StringField('D.O.B:', [Required(
-        message='A date of birth must be provided.')])
+        message='A date of birth must be provided in format DD/MM/YYYY.')])
     mobile = StringField('Mobile number: ', [Required(
-        message='A mobile number must be provided.')])
+        message='A mobile number beginning with 07 must be provided.')])
 
     def validate(self):
         if not Form.validate(self):
@@ -58,6 +58,7 @@ class CreateForm(Form):
         if not self.surname.data.isalpha():
             self.__reset_field(self.surname,
                                "Last name must contain only letters.")
+
         try:
             datetime.datetime.strptime(self.dob.data, "%d/%m/%Y")
         except ValueError:
@@ -66,7 +67,7 @@ class CreateForm(Form):
         mobile = self.mobile.data
         if len(mobile) < 7 or len(mobile) > 11:
             self.__reset_field(self.mobile,
-                               "Mobile number must between length 7 & 11")
+                               "Mobile number must between length 7 and 11")
 
         if mobile[0:2] != '07':
             self.__reset_field(self.mobile, "Mobile number must begin with 07")

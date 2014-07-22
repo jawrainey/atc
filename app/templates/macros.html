@@ -5,3 +5,11 @@
 {{default}}
 {% endif -%}
 {% endmacro -%}
+
+{% macro flash_class(field) -%}
+{% if field.errors -%}
+{{ "has-error" }}
+{% elif field.data -%}
+{{ "has-success" }}
+{% endif -%}
+{% endmacro -%}

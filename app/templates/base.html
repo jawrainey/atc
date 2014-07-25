@@ -10,12 +10,12 @@
         <div class="container-fluid">
           <a class="navbar-brand" href="/">&lambda;</a>
           <ul class="nav navbar-nav pull-right">
-            {%- if request.endpoint == 'create' -%}
+            {% if request.endpoint == 'create' -%}
             <li class="active"><a href="/create">Create</a></li>
             <li><a href="/logout">Logout</a></li>
             {% else %}
             <li class="active"><a href="/">Login</a></li>
-            {% endif %}
+            {% endif -%}
           </ul>
         </div>
       </nav>

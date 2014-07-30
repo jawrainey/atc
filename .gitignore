@@ -1,5 +1,5 @@
 /atcenv
-app.db
+dev.db
 *.pyc
 *.swp
 .ropeproject/

@@ -7,7 +7,7 @@ from flask.ext.bcrypt import Bcrypt
 bcrypt = Bcrypt()
 from flask.ext.login import LoginManager
 login_manager = LoginManager()
-login_manager.login_view = '/'
+login_manager.login_view = 'app.index'
 
 
 def create_app(config):

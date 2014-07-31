@@ -44,7 +44,7 @@ def create():
         db.session.add(patient)
         db.session.commit()
         # Reset the form & redirect to self.
-        flash('The form has been submitted successfully.')
+        flash('The patient data has been saved successfully.')
         form.reset()
     return render_template('create.html', form=form)
 

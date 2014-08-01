@@ -20,11 +20,8 @@ class ProdConfig(Config):
     """
     ENV = 'prod'
     DEBUG = False
-    heroku = os.environ.get('DATABASE_URL')
-    if heroku:
-        SQLALCHEMY_DATABASE_URI = heroku
-    else:
-        SQLALCHEMY_DATABASE_URI = 'postgresql://localhost/example'
+    SQLALCHEMY_DATABASE_URI = os.environ.get('DATABASE_URL',
+                                             'postgresql://localhost/example')
 
 
 class DevConfig(Config):

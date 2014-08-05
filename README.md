@@ -1,27 +1,55 @@
 # ATC Cardiff
 
-A web application to gather patient data at Cardiff's [Alchohol Treatment Centre](http://www.walesprobationtrust.gov.uk/alcohol-treatment-centre-2/) (ATC). The data harvested by this app will be used as a **plugin** to *personalise* the [SMS intervention service](https://github.com/jawrainey/sris).
+A web application developed to gather patient data at Cardiff's [Alcohol Treatment Centre](http://www.walesprobationtrust.gov.uk/alcohol-treatment-centre-2/) (ATC). Data gathered by this application will be used to initiate conversation with the [SMS intervention service](https://github.com/jawrainey/sris).
 
-## Requirements
+## Deployment
 
-This app was built using [Flask](https://github.com/mitsuhiko/flask) with several extensions to make life easier. These include:
+### Database creation
 
-- [Flask-Bootstrap](https://github.com/mbr/flask-bootstrap): access to Twitter-Bootstrap assets.
-- [FlaskSQLAlchemy](https://github.com/mitsuhiko/flask-sqlalchemy): easy ORM access to databases in Python.
-- [FlaskWTF](https://github.com/lepture/flask-wtf): secure form creation and access.
+To create the database tables invoke the `init_db` method:
+
+    python manage.py init_db
+
+### Adding users
+
+As there is no means of registration, a user (or additional users) needs to be created manually. This can be achieved by invoking the `create_user` method:
+
+    python manage.py create_user
+
+### Environment variables
+
+The app was developed to make deployment to PaaS a breeze. You therefore need to set several environment variables in your production sever. (IMPROVE)
+
+#### Database access
+
+The [database](https://github.com/jawrainey/atc/blob/master/settings.py#L23) environment variable `DATABASE_URL` needs to be updated (or the default value) to the string of your `postgresql` of your database. This enables `postgresql` access.
+
+#### Production configuration
+
+The [environment variable](https://github.com/jawrainey/atc/blob/master/manage.py#L6) `ENV` needs to be set to `prod` to disable debugging and enable `postgresql` database access.
 
 ## Building locally
 
-To install the dependendies I recommend creating a [virtualenv](http://docs.python-guide.org/en/latest/dev/virtualenvs/):
+### Installing dependencies
 
-    virtualenv atcenv
-    source atcenv/bin/activate
+I recommend creating a [virtualenv](http://docs.python-guide.org/en/latest/dev/virtualenvs/) when developing:
+
+    virtualenv venv
+    source venv/bin/activate
     pip install -r requirements.txt
+
+### Viewing the site
 
 The site can be viewed [locally](http://localhost:5000) by running the flask app:
 
-    python run.py
+    python manage.py runserver
+
+### Shell access
+
+For shell access to the `app` and `db` variables, pass the `shell` parameter to `manage.py`:
+
+    python manage.py shell
 
 ## Contributing
 
-If you have any suggestions then please open an [issue](https://github.com/jawrainey/?/issues) or make a [pull request](https://github.com/jawrainey/atc-app/pulls).
+If you have any suggestions then please open an [issue](https://github.com/jawrainey/atc/issues) or make a [pull request](https://github.com/jawrainey/atc/pulls).

@@ -1,4 +1,4 @@
-/atcenv
+/venv
 dev.db
 *.pyc
 *.swp

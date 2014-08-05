@@ -18,15 +18,13 @@ As there is no means of registration, a user (or additional users) needs to be c
 
 ### Environment variables
 
-The app was developed to make deployment to PaaS a breeze. You therefore need to set several environment variables in your production sever. (IMPROVE)
-
 #### Database access
 
-The [database](https://github.com/jawrainey/atc/blob/master/settings.py#L23) environment variable `DATABASE_URL` needs to be updated (or the default value) to the string of your `postgresql` of your database. This enables `postgresql` access.
+To enable `postgresql` access, the [database](https://github.com/jawrainey/atc/blob/master/settings.py#L23) environment variable `DATABASE_URL` needs to be set to the string of your `postgresql` of your database.
 
 #### Production configuration
 
-The [environment variable](https://github.com/jawrainey/atc/blob/master/manage.py#L6) `ENV` needs to be set to `prod` to disable debugging and enable `postgresql` database access.
+The [configuration variable](https://github.com/jawrainey/atc/blob/master/manage.py#L6) `ENV` needs to be set to `prod` to disable debugging and enable `postgresql` database access.
 
 ## Building locally
 

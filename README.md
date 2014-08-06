@@ -38,7 +38,7 @@ I recommend creating a [virtualenv](http://docs.python-guide.org/en/latest/dev/v
 
 ### Viewing the site
 
-The site can be viewed [locally](http://localhost:5000) by running the flask app:
+The site can be viewed locally by running the flask app:
 
     python manage.py runserver
 

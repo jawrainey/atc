@@ -33,13 +33,13 @@ def logout():
 def create():
     form = forms.CreateForm()
     if form.validate_on_submit():
-        dob = datetime.datetime.strptime(form.dob.data, "%d/%m/%Y")
-        # Prefer international format as that's what is used by SMS APIs.
-        mobile = form.mobile.data.replace('07', '447')
         # Create a patient from user input
         patient = models.Patient(forename=form.forename.data,
                                  surname=form.surname.data,
-                                 dob=dob, mobile=mobile)
+                                 dob=datetime.datetime.strptime(
+                                     form.dob.data, "%d/%m/%Y").strftime("%s"),
+                                 mobile=form.mobile.data.replace('07', '447'))
+
         # Add patient data to database
         db.session.add(patient)
         db.session.commit()

@@ -31,7 +31,7 @@ class Patient(db.Model):
 
     forename = db.Column(db.String(64), nullable=False)
     surname = db.Column(db.String(64), nullable=False)
-    dob = db.Column(db.Date)
+    dob = db.Column(db.String(40))
     mobile = db.Column(db.String(30), nullable=False,
                        unique=True, primary_key=True)
 

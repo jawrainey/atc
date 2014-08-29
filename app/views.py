@@ -36,8 +36,8 @@ def create():
         # Create a patient from user input
         patient = models.Patient(forename=form.forename.data,
                                  surname=form.surname.data,
-                                 dob=datetime.datetime.strptime(
-                                     form.dob.data, "%d/%m/%Y").strftime("%s"),
+                                 dob=int(datetime.datetime.strptime(
+                                     form.dob.data, "%d/%m/%Y").strftime("%s")),
                                  mobile=form.mobile.data.replace('07', '447'))
 
         # Add patient data to database

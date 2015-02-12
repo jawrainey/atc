@@ -48,6 +48,12 @@ For shell access to the `app` and `db` variables, pass the `shell` parameter to 
 
     python manage.py shell
 
+## License
+
+- Licensed under [MIT](https://github.com/jawrainey/atc/blob/master/LICENSE.txt).
+
+**Note:** this application was developed as experiment to facilitate the associated intervention service. This, nor the intervention service are currently being used, and is being made upon-source to promote the idea of SMS for interventions.
+
 ## Contributing
 
 If you have any suggestions then please open an [issue](https://github.com/jawrainey/atc/issues) or make a [pull request](https://github.com/jawrainey/atc/pulls).

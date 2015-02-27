@@ -2,6 +2,22 @@
 
 A web application developed to gather patient data at Cardiff's [Alcohol Treatment Centre](http://www.walesprobationtrust.gov.uk/alcohol-treatment-centre-2/) (ATC). Data gathered by this application will be used to initiate conversation with the [SMS intervention service](https://github.com/jawrainey/sris).
 
+**Note:** this and the [associated intervention service](https://github.com/jawrainey/sris) were developed as a means of exploring SMS as a means of intervention. Nether are in use, and is being made open-source to promote the ideas explored, as well as the interface and techniques implemented.
+
+# Screenshots
+
+The login screen for ATC:
+
+![Login screen](https://i.imgur.com/h4Piyf3.png?1 "Login screen")
+
+The interface for adding new ATC patients:
+
+![Adding user - note error found](https://i.imgur.com/9nd5O52.png?1 "Adding user - note error found")
+
+The same interface having automatically cleared the field and displayed error message to user:
+
+![Adding user - note error message](https://i.imgur.com/GKjRgne.png?1 "Adding user - note error message")
+
 ## Deployment
 
 ### Database creation
@@ -51,8 +67,6 @@ For shell access to the `app` and `db` variables, pass the `shell` parameter to 
 ## License
 
 - Licensed under [MIT](https://github.com/jawrainey/atc/blob/master/LICENSE.txt).
-
-**Note:** this application was developed as experiment to facilitate the associated intervention service. This, nor the intervention service are currently being used, and is being made open-source to promote the idea of SMS for interventions.
 
 ## Contributing
 

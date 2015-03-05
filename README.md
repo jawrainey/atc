@@ -2,7 +2,7 @@
 
 A web application developed to gather patient data at Cardiff's [Alcohol Treatment Centre](http://www.walesprobationtrust.gov.uk/alcohol-treatment-centre-2/) (ATC). Data gathered by this application will be used to initiate conversation with the [SMS intervention service](https://github.com/jawrainey/sris).
 
-**Note:** this and the [associated intervention service](https://github.com/jawrainey/sris) were developed as a means of exploring SMS as a means of intervention. Nether are in use, and is being made open-source to promote the ideas explored, as well as the interface and techniques implemented.
+**Note:** this and the [associated intervention service](https://github.com/jawrainey/sris) were developed as a means of exploring SMS as a means of intervention. Neither are in production use, and have been made open-source to promote the ideas explored, as well as the interface and techniques implemented.
 
 # Screenshots
 
